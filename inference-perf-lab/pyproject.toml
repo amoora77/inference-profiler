@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=65.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "perflab"
+version = "0.1.0"
+description = "Reproducible inference benchmarking toolkit for PyTorch models"
+requires-python = ">=3.8"
+dependencies = [
+    "torch>=2.0.0",
+    "torchvision>=0.15.0",
+    "numpy>=1.24.0",
+    "matplotlib>=3.7.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "psutil>=5.9.0",
+]
+
+[project.scripts]
+perflab = "perflab.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
