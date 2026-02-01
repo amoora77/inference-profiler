@@ -1,4 +1,4 @@
-import torch
+iimport torch
 import torch.nn as nn
 from torchvision import models
 
@@ -55,9 +55,12 @@ def get_model(name, device, quantize=False, channels_last=False):
         model = model.to(memory_format=torch.channels_last)
 
     if quantize and name == "tiny_transformer":
-        model = torch.quantization.quantize_dynamic(
-            model, {nn.Linear}, dtype=torch.qint8
-        )
+        try:
+            model = torch.quantization.quantize_dynamic(
+                model, {nn.Linear}, dtype=torch.qint8
+            )
+        except (RuntimeError, AttributeError):
+            pass
 
     return model
 

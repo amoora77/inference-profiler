@@ -22,9 +22,15 @@ def run_benchmark(
     out_path="results/runs.jsonl",
 ):
     if threads is not None:
-        torch.set_num_threads(threads)
+        try:
+            torch.set_num_threads(threads)
+        except RuntimeError:
+            pass
     if interop_threads is not None:
-        torch.set_num_interop_threads(interop_threads)
+        try:
+            torch.set_num_interop_threads(interop_threads)
+        except RuntimeError:
+            pass
 
     if device == "cuda" and not torch.cuda.is_available():
         device = "cpu"
